@@ -22,6 +22,29 @@ const authController = {
         catch (err) {
             res.status(500).json(err);
         }
+    },
+
+    // LOGIN
+    loginUser: async (req, res) => {
+        try {
+            const user = await User.findOne({ username: req.body.username });
+            if (!user) {
+                return res.status(404).json("User not found");
+            }
+            const validPassword = await bcrypt.compare(
+                req.body.password, 
+                user.password
+            ); 
+            if (!validPassword) {
+                return res.status(400).json("Wrong password");
+            }
+            if(user && validPassword) {
+                res.status(200).json(user);
+            }
+        }
+        catch (err) {
+            res.status(500).json(err);
+        }
     }
 }
 
