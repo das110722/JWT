@@ -18,6 +18,11 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
+// ROUTES
+
+
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
 });
+
+// 
